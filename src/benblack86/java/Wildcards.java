@@ -13,6 +13,7 @@ public class Wildcards {
 	 * 
 	 */
 	public static void main(String[] args) {
+		// cannot use Arrays.asList as it returns a structure that can not be added to
 		List<Number> items = new ArrayList<Number>();
 		items.add(3);
 		items.add(8.0);

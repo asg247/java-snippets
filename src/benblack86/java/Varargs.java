@@ -11,6 +11,7 @@ public class Varargs {
 		System.out.println(Varargs.toList(new Object[]{}));
 	}
 	
+	@SafeVarargs
 	public static <T> List<T> toList(T... array) {
 		List<T> list = new ArrayList<T>();
 		
