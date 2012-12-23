@@ -3,33 +3,35 @@ package benblack86.binary;
 import java.util.BitSet;
 
 public class BitSetTest {
-	private static final int RUNS = 100000;
+	private static final int RUNS = 1000000;
 	private static final int NUM_BITS = 64;
-	// every other bit set
-	private static long setMask = 0xAAAAAAAAAAAAAAAAl;
+	private static long data = 0b0011100001101100001000100000010010101010001110000011000000000100l;
 
 	private static long nativeBitTest() {
-		long bits = 0;
 		int found = 0;
-		bits |= setMask;
 
 		long start = System.currentTimeMillis();
 
 		for (int bit = 0; bit < NUM_BITS; ++bit) {
-			if (((bits >>> bit) & 0b1) == 0) {
+			if (((data >> bit) & 0b1) == 1) {
 				++found;
 			}
 		}
 		
-		System.out.printf("found: %s\n", found);
+		long time = System.currentTimeMillis() - start;
+		
+		//System.out.printf("found: %s\n", found);
 
-		return System.currentTimeMillis() - start;
+		return time;
 	}
 
-	private static long bitsetBitTest() {
+	private static long bitsetBitTest() {		
+		// setup
 		BitSet bits = new BitSet(NUM_BITS);
-		for (int bit = 1; bit < NUM_BITS; bit += 2) {
-			bits.set(bit);
+		for (int bit = 0; bit < NUM_BITS; ++bit) {
+			if (((data >> bit) & 0b1) == 0) {
+				bits.set(bit);
+			}
 		}
 
 		long start = System.currentTimeMillis();
@@ -39,9 +41,11 @@ public class BitSetTest {
 			++found;
 		}
 		
-		System.out.printf("found: %s\n", found);
+		long time = System.currentTimeMillis() - start;
+		
+		//System.out.printf("found: %s\n", found);
 
-		return System.currentTimeMillis() - start;
+		return time;
 	}
 
 	public static void main(String[] args) {
