@@ -1,6 +1,6 @@
 package benblack86.binary;
 
-public class BasicBinary {
+public class BinaryBasics {
 	public static void main(String args[]) {
 
 		System.out.printf("Capacity of primitives:\n");
