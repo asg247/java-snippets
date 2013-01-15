@@ -55,7 +55,7 @@ public class BinaryBasics {
 	public static void printBinary2(int i) {
 		System.out.printf("%12s: ", i);
 		for(int k = 31; k > -1; k--) {
-			// shift bit to the most significant position and apply mask
+			// shift bit to the least significant position and apply mask
 			System.out.printf("%s", i >> k & 0b1);
 		}
 		System.out.printf("\n");
