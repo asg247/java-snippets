@@ -1,8 +1,10 @@
-JavaSnippets: Snippets of useful/interesting Java code
+# JavaSnippets
+Snippets of useful/interesting Java code
+
+## Technology
 - Java: 1.7.0_10-b18
 
-Ideas
----------------
+## Ideas
 Sorting (plus searching / binary search)
 Divide-and-conquer
 Dynamic programming / memoization
