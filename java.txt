@@ -1,7 +1,5 @@
 
-up vote
-63
-down vote
+
 Use the most recent possible java. Java 8 lets you use lambda expressions, so use it if you need anything even like functional objects.
 Define shortened functions for things you use a lot. For instance, you have a hundred calls to exampleClassInstance.doSomething(someParameter), define a new function void d(ParameterType p){exampleClassInstance.doSomething(p)} and use it to save yourself some characters.
 If you are using a particular long class name more than once, like
