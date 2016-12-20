@@ -1,0 +1,33 @@
+
+up vote
+63
+down vote
+Use the most recent possible java. Java 8 lets you use lambda expressions, so use it if you need anything even like functional objects.
+Define shortened functions for things you use a lot. For instance, you have a hundred calls to exampleClassInstance.doSomething(someParameter), define a new function void d(ParameterType p){exampleClassInstance.doSomething(p)} and use it to save yourself some characters.
+If you are using a particular long class name more than once, like
+
+MyEventHandlerProxyQueueExecutorServiceCollectionAccessManagerFactory
+instead define a new class:
+
+class X extends MyEventHandlerProxyQueueExecutorServiceCollectionAccessManagerFactory{}
+If you are only using one particular method of that class (but still need to instantiate it), you can define a shortened version inside the new class at the same time.
+Use function type parameters to shorten things, where possible, like this:
+<T>void p(T o){System.out.println(o);}
+Use for(;;) instead of while(true).
+Do not use access modifiers unless absolutely necessary.
+Do not use final for anything.
+Never put a block after a for loop (but a foreach loop for(x:y) is different). Additional statements should be placed inside the for statement itself, like for(int i=0;i<m;a(i),b(++i))c(i);.
+Use inline assignment, incrementation, instantiation. Use anonymous inline classes where appropriate. Use lambdas instead if possible. Nest function calls. Some functions are guaranteed to return their parent object, these ones are actually even meant to be chained together.
+Your main method throws Exceptions, not catches them.
+Error is shorter than Exception. If for some reason you really need to throw messages up the stack, use an Error, even if it is perfectly normal situation.
+If some condition would require immediate termination, use int a=1/0; rather than throw null; or System.exit(0);. At run time, this throws an ArithmeticException. If you already have a numeric variable in your code, use it instead. (If you already have import static java.lang.System.*;, go with exit(0);.)
+Instead of implementing interfaces, like List<E>, extend an immediate (or not-so-immediate, if there is any advantage to doing so at all) child class, like AbstractList<E>, which provides default implementations of most of the methods, and requires only the implementation of a few key pieces.
+Write your code out in longhand first, with newlines, indentation, and full variable names. Once you have working code, then you can shorten names, move declarations around, and add shortcut methods. By writing it out long to start, you give yourself more opportunity to simplify the program as a whole.
+Compare alternative optimizations to a piece of code, because the most optimal strategy can change dramatically with very small changes to the code. For instance:
+
+If you have only up to two calls to Arrays.sort(a), the most efficient way to is to call it with its fully qualified name, java.util.Arrays.sort(a).
+With three or more calls, it is more efficient to instead add a shortcut method void s(int[]a){java.util.Arrays.sort(a);}. This should still use the fully-qualified name in this case. (If you need more than one overload, you are probably doing it wrong.)
+However, if your code needs to also copy an array at some point (usually done with a short for loop in golfing, in the absence of an easily-accessible library method), you can take advantage of Arrays.copyOf to do the task. When more than one method is used, and there are 3 or more calls, doing import static java.util.Arrays.*; is the most efficient way of referring to those methods. After that, only if you have more than 8 separate calls to sort should you be using a shortcut method for it, and only at 5 or more calls is a shortcut warranted for copyOf.
+The only real way of performing such analysis on code is to actually perform potential modifications on copies of the code, and then compare the results.
+Avoid using someTypeValue.toString(); method, instead just append someTypeValue+"".
+If you do need windows, don't use Swing, use AWT (unless you really need something from Swing). Compare import javax.swing.*; and import java.awt.*;. Additionally, components in Swing have a J prepended to their name (JFrame, JLabel, etc), but components in AWT don't (Frame, Label, etc)
